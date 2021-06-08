@@ -27,9 +27,12 @@ node {
         docker.withRegistry('https://registry.hub.docker.com', 'dockerHub') {
             
             app.push("latest")
-            
-            stage('Run the Container') {
-                sh 'docker run -it -d -p 8091:8091 --name pulledim frehman/pipe1:latest'
+        }            
+                stage('Run Container on Deployment Server'){
+               def dockerRun = 'docker run -p 8088:8088 -d --name faisal-app frehman/pipe1:latest'
+               sshagent(['dep-server']) {
+               sh "ssh -o StrictHostKeyChecking=no frehman@10.24.2.193 ${dockerRun}"  
+     }
             }
             
             }
