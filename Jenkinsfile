@@ -29,7 +29,7 @@ node {
             app.push("latest")
         }            
                 stage('Run Container on Deployment Server'){
-               def dockerRun = 'docker run -p 8088:8088 -d --name faisal-app frehman/pipe1:latest'
+               def dockerRun = 'docker run -p 8088:8088 -d --name faisal-app frehman/webserver:9.0'
                sshagent(['dep-server']) {
                sh "ssh -o StrictHostKeyChecking=no frehman@10.24.2.193 ${dockerRun}"  
      }
