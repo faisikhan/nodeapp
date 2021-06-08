@@ -27,6 +27,11 @@ node {
         docker.withRegistry('https://registry.hub.docker.com', 'dockerHub') {
             
             app.push("latest")
+            
+            stage('Run the Container') {
+                sh 'docker run -it -d -p 8091:8091 --name pulledim frehman/pipe1:latest'
+            }
+            
             }
                 echo "Trying to Push Docker Build to DockerHub"
     }
