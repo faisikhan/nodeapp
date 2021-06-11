@@ -18,15 +18,15 @@ node {
         app.inside {
             echo "Tests passed"
         }
-    }
-
+    }   
+    
     stage('Push image') {
         /*
                         You would need to first register with DockerHub before you can push images to your account
                 */
         docker.withRegistry('https://registry.hub.docker.com', 'dockerHub') {
-            
-            app.push(${BRANCH_NAME}).(${BUILD_NUMBER})
+            app.push("${env.BUILD_NUMBER}")
+            app.push("latest")
         }            
                 stage('Run Container on Deployment Server'){
                def dockerRun = 'docker run -p 8088:8088 -d --name faisal-app frehman/webserver:9.0'
